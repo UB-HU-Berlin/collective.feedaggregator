@@ -2,17 +2,21 @@
 Feed Aggregator for Plone
 *************************
 
-.. contents:: Conteúdo
-   :depth: 2
+.. contents:: Table of Contents
 
 Life, the Universe, and Everything
 ==================================
 
-A `Senha Web`_ é um serviço de autenticação da Prefeitura do Municipio de São Paulo.
+This package defines a Feed Aggregator content type that shows all entries on a list of feeds.
 
-Este pacote integra autenticação baseada na `Senha Web`_ no Plone.
+TODO:
 
-.. _`Senha Web`: http://www.prefeitura.sp.gov.br/cidade/secretarias/financas/servicos/senhaweb/index.php?p=4458
+* [ ] deal with shorter timeouts
+* [ ] byline for entries
+* [ ] honor sorting and limit fields in listings
+* [ ] batching in listings
+* [ ] lead image support
+* [ ] tile for collective.cover
 
 Mostly Harmless
 ===============
@@ -51,4 +55,7 @@ Check the box next to ``collective.feedaggregator`` and click the 'Activate' but
 How does it work
 ----------------
 
-TBA.
+Every Feed Aggregator includes a list of feeds to be processed.
+The entries in the feeds are parsed in parallel using multiprocessing.
+Results are cached for 15 minutes on an instance base.
+If a Feed Aggregator is modified in any way, caching is invalidated.
