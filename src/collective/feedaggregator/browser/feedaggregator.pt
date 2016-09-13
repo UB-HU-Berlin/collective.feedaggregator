@@ -1,0 +1,37 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:metal="http://xml.zope.org/namespaces/metal"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    lang="en"
+    metal:use-macro="context/main_template/macros/master"
+    i18n:domain="collective.feedaggregator">
+  <body>
+    <metal:content-core fill-slot="content-core">
+      <tal:entries repeat="entry view/results">
+        <article class="tileItem">
+          <h2 class="tileHeadline">
+            <a tal:attributes="href entry/url" tal:content="entry/title">
+              Title
+            </a>
+          </h2>
+
+          <div>Byline</div>
+
+          <p tal:condition="entry/description" tal:content="entry/description">
+              Description
+          </p>
+
+          <p class="tileFooter">
+            <a tal:attributes="href entry/url"
+                i18n:translate="read_more">
+              Read More&hellip;
+            </a>
+          </p>
+
+          <div class="visualClear"><!-- --></div>
+
+        </article>
+      </tal:entries>
+    </metal:content-core>
+  </body>
+</html>

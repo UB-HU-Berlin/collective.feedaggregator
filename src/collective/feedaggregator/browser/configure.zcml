@@ -7,4 +7,11 @@
       directory="static"
       />
 
+  <browser:page
+      name="listing_view"
+      for="collective.feedaggregator.interfaces.IFeedAggregator"
+      permission="zope2.View"
+      class="collective.feedaggregator.browser.ListingView"
+      />
+
 </configure>
