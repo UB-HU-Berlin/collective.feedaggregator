@@ -12,7 +12,8 @@ This package defines a Feed Aggregator content type that shows all entries on a 
 TODO:
 
 * [ ] deal with shorter timeouts
-* [ ] byline for entries
+* [X] byline for entries
+* [ ] honor privacy settings on byline
 * [ ] honor sorting and limit fields in listings
 * [ ] batching in listings
 * [ ] lead image support

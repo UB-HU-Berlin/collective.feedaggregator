@@ -27,3 +27,7 @@ class ListingView(BrowserView):
     @ram.cache(_feedaggregator_cachekey)
     def results(self):
         return self.context.results
+
+    @property
+    def show_byline(self):
+        return True

@@ -48,6 +48,7 @@ def _parse_feed(url):
     entries = []
     for entry in feed['entries']:
         entries.append(dict(
+            author=entry.author,
             description=entry.description,
             modified=_localized_time(entry.updated_parsed),
             published=_localized_time(entry.published_parsed),

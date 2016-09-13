@@ -15,7 +15,40 @@
             </a>
           </h2>
 
-          <div>Byline</div>
+          <div class="documentByLine"
+              id="plone-document-byline"
+              i18n:domain="plone"
+              tal:condition="view/show_byline">
+
+            <span class="documentAuthor" tal:condition="entry/author">
+              <tal:i18n i18n:translate="label_by_author">
+                  by
+                <span property="rnews:author"
+                    tal:content="entry/author"
+                    i18n:name="author">Roland Barthes</span>
+              </tal:i18n>
+                —
+            </span>
+
+            <span class="documentPublished"
+                  tal:condition="entry/published">
+              <span i18n:translate="box_published">
+                  published
+              </span>
+              <span tal:content="entry/published" property="rnews:datePublished">
+                  August 16, 2001 at 23:35:59
+              </span><tal:sep condition="entry/modified">,</tal:sep>
+            </span>
+
+            <span class="documentModified" tal:condition="entry/modified">
+              <span i18n:translate="box_last_modified">
+                  last modified
+              </span>
+              <span tal:content="entry/modified" property="rnews:dateModified">
+                  August 16, 2001 at 23:35:59
+              </span>
+            </span>
+          </div>
 
           <p tal:condition="entry/description" tal:content="entry/description">
               Description
