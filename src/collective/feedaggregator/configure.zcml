@@ -33,6 +33,6 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
-  <utility factory=".setuphandlers.HiddenProfiles" name="smdu.contenttypes" />
+  <utility factory=".setuphandlers.HiddenProfiles" name="collective.feedaggregator" />
 
 </configure>
