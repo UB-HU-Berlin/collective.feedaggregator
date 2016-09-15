@@ -6,16 +6,32 @@ from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
 from plone.testing import z2
 
+import pkg_resources
+
+try:
+    pkg_resources.get_distribution('collective.cover')
+except pkg_resources.DistributionNotFound:
+    HAS_COVER = False
+else:
+    HAS_COVER = True
+
 
 class Fixture(PloneSandboxLayer):
 
     defaultBases = (PLONE_FIXTURE,)
 
     def setUpZope(self, app, configurationContext):
+        if HAS_COVER:
+            import collective.cover
+            self.loadZCML(package=collective.cover)
+
         import collective.feedaggregator
         self.loadZCML(package=collective.feedaggregator)
 
     def setUpPloneSite(self, portal):
+        if HAS_COVER:
+            self.applyProfile(portal, 'collective.cover:default')
+
         self.applyProfile(portal, 'collective.feedaggregator:default')
 
 FIXTURE = Fixture()

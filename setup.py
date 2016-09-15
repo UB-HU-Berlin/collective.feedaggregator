@@ -56,6 +56,7 @@ setup(
     ],
     extras_require={
         'test': [
+            'mock',
             'plone.app.robotframework',
             'plone.app.testing [robot]',
             'plone.browserlayer',

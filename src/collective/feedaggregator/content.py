@@ -9,7 +9,6 @@ from collective.feedaggregator.interfaces import IFeedAggregator
 from collective.feedaggregator.logger import logger
 from datetime import datetime
 from multiprocessing import Pool
-from plone import api
 from plone.dexterity.content import Item
 from profilehooks import timecall
 from time import mktime
@@ -20,10 +19,9 @@ import feedparser
 import itertools
 
 
-def _localized_time(struct_time):
-    """Convert time into localized time in long format."""
-    d = datetime.fromtimestamp(mktime(struct_time))
-    return api.portal.get_localized_time(d, long_format=True)
+def _to_datetime(struct_time):
+    """Convert time into datetime."""
+    return datetime.fromtimestamp(mktime(struct_time))
 
 
 def _parse_feed(url):
@@ -50,8 +48,8 @@ def _parse_feed(url):
         entries.append(dict(
             author=entry.author,
             description=entry.description,
-            modified=_localized_time(entry.updated_parsed),
-            published=_localized_time(entry.published_parsed),
+            modified=_to_datetime(entry.updated_parsed),
+            published=_to_datetime(entry.published_parsed),
             title=entry.title,
             url=entry.link,
         ))
@@ -63,9 +61,8 @@ class FeedAggregator(Item):
 
     """A feed aggregator."""
 
-    @property
     @timecall(immediate=INMEDIATE_PROFILING)
-    def results(self):
+    def results(self, batch=False):
         """Return a list of items from all feeds. To speed up feed
         parsing, we create a pool of cpu_count processes to get the
         items in parallel.

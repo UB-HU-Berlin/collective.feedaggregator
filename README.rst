@@ -17,7 +17,7 @@ TODO:
 * [ ] honor sorting and limit fields in listings
 * [ ] batching in listings
 * [ ] lead image support
-* [ ] tile for collective.cover
+* [X] tile for collective.cover
 
 Mostly Harmless
 ===============

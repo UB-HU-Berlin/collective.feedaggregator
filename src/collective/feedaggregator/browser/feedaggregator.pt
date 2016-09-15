@@ -30,24 +30,29 @@
                 —
             </span>
 
-            <span class="documentPublished"
-                  tal:condition="entry/published">
-              <span i18n:translate="box_published">
+            <tal:dates define="published entry/published;
+                               modified entry/modified">
+              <span class="documentPublished"
+                    tal:condition="published">
+                <span i18n:translate="box_published">
                   published
-              </span>
-              <span tal:content="entry/published" property="rnews:datePublished">
+                </span>
+                <span tal:content="python:view.get_localized_time(published)"
+                    property="rnews:datePublished">
                   August 16, 2001 at 23:35:59
-              </span><tal:sep condition="entry/modified">,</tal:sep>
-            </span>
+                </span><tal:sep condition="modified">,</tal:sep>
+              </span>
 
-            <span class="documentModified" tal:condition="entry/modified">
-              <span i18n:translate="box_last_modified">
+              <span class="documentModified" tal:condition="modified">
+                <span i18n:translate="box_last_modified">
                   last modified
-              </span>
-              <span tal:content="entry/modified" property="rnews:dateModified">
+                </span>
+                <span tal:content="python:view.get_localized_time(modified)"
+                    property="rnews:dateModified">
                   August 16, 2001 at 23:35:59
+                </span>
               </span>
-            </span>
+            </tal:dates>
           </div>
 
           <p tal:condition="entry/description" tal:content="entry/description">
