@@ -62,16 +62,19 @@ class FeedAggregatorTile(CollectionTile):
     def results(self):
         uuid = self.data.get('uuid', None)
         obj = uuidToObject(uuid)
-        if obj:
-            # we use the view method as a helper as it's already cached
-            view = obj.restrictedTraverse('listing_view')
-            results = view.results
-            if self.data.get('random', False):
-                if self.count > len(results):
-                    self.count = len(results)
-                return random.sample(results, self.count)
-            start, count = self.offset, self.offset + self.count
-            return results[start:count]
-        else:  # the object has been removed
-            self.remove_relation()
+        if obj is None:
+            self.remove_relation()  # the referenced object was removed
             return []
+
+        # we use the view method as a helper as it's already cached
+        view = obj.restrictedTraverse('listing_view')
+        results = view.results
+
+        if self.data.get('random', False):
+            # return a sample of the population
+            size = min(self.count, len(results))
+            return random.sample(results, size)
+
+        # return a slice of the list
+        start, end = self.offset, self.offset + self.count
+        return results[start:end]
