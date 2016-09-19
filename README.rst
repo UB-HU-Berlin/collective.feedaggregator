@@ -8,6 +8,7 @@ Life, the Universe, and Everything
 ==================================
 
 This package defines a Feed Aggregator content type that shows all entries on a list of feeds.
+External content is not indexed in any way.
 
 TODO:
 
@@ -60,3 +61,10 @@ Every Feed Aggregator includes a list of feeds to be processed.
 The entries in the feeds are parsed in parallel using multiprocessing.
 Results are cached for 15 minutes on an instance base.
 If a Feed Aggregator is modified in any way, caching is invalidated.
+
+Not entirely unlike
+===================
+
+`Products.feedfeeder <https://pypi.python.org/pypi/Products.feedfeeder>`_
+    Archetypes-based folder that turns external feed entries into content items.
+    Works in Plone 4.3 and 5.
