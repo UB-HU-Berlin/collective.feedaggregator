@@ -21,7 +21,10 @@ import itertools
 
 def _to_datetime(struct_time):
     """Convert time into datetime."""
-    return datetime.fromtimestamp(mktime(struct_time))
+    try:
+        return datetime.fromtimestamp(mktime(struct_time))
+    except TypeError:
+        return None
 
 
 def _parse_feed(url):
@@ -45,13 +48,17 @@ def _parse_feed(url):
 
     entries = []
     for entry in feed['entries']:
+        # RSS entry dates are parsed to updated attributes only
+        # we use the same value for both fields if needed
+        modified = entry.get('updated_parsed', '')  # optional element
+        published = entry.get('published_parsed', modified)
         entries.append(dict(
-            author=entry.author,
-            description=entry.description,
-            modified=_to_datetime(entry.updated_parsed),
-            published=_to_datetime(entry.published_parsed),
-            title=entry.title,
-            url=entry.link,
+            author=entry.get('author', ''),  # optional element
+            description=entry.get('description'),
+            modified=_to_datetime(modified),
+            published=_to_datetime(published),
+            title=entry.get('title'),
+            url=entry.get('link'),
         ))
     return entries
 

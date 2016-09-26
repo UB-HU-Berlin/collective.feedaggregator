@@ -4,7 +4,8 @@ Changelog
 1.0a2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix ``LocationError`` on RSS feeds.
+  [hvelarde]
 
 
 1.0a1 (2016-09-19)
