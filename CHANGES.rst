@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0a2 (unreleased)
+1.0a2 (2016-09-26)
 ------------------
 
 - Entries are now limited and sorted by the selected key in the specified order;
