@@ -9,6 +9,7 @@ from collective.feedaggregator.interfaces import IFeedAggregator
 from collective.feedaggregator.logger import logger
 from datetime import datetime
 from multiprocessing import Pool
+from operator import itemgetter
 from plone.dexterity.content import Item
 from profilehooks import timecall
 from time import mktime
@@ -69,13 +70,19 @@ class FeedAggregator(Item):
     """A feed aggregator."""
 
     @timecall(immediate=INMEDIATE_PROFILING)
-    def results(self, batch=False):
+    def results(self):
         """Return a list of items from all feeds. To speed up feed
         parsing, we create a pool of cpu_count processes to get the
-        items in parallel.
+        items in parallel. Results are limited and sorted by the
+        selected key in the specified order.
         """
         pool = Pool()
         results = pool.map(_parse_feed, self.feeds)
         # results is a list of lists; we must flatten it
         # see: http://stackoverflow.com/a/406199
-        return list(itertools.chain.from_iterable(results))
+        results = list(itertools.chain.from_iterable(results))
+        return sorted(
+            results,
+            key=itemgetter(self.sort_on),
+            reverse=self.sort_reversed,
+        )[:self.limit]

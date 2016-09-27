@@ -34,16 +34,18 @@ class IFeedAggregator(model.Schema):
         ),
     )
 
-    sort_on = schema.TextLine(
+    sort_on = schema.Choice(
         title=_(u'Sort on'),
         description=_(u'Sort the items on this index.'),
-        required=False,
+        required=True,
+        values=['modified', 'published'],
+        default='published',
     )
 
     sort_reversed = schema.Bool(
         title=_(u'Reversed order'),
         description=_(u'Sort the items in reversed order.'),
-        required=False,
+        default=False,
     )
 
     limit = schema.Int(
@@ -51,6 +53,7 @@ class IFeedAggregator(model.Schema):
         description=_(u'Maximum number of items to be shown.'),
         required=False,
         default=100,
+        min=1,
     )
 
     item_count = schema.Int(
@@ -58,4 +61,5 @@ class IFeedAggregator(model.Schema):
         description=_(u'Number of items that will be shown in one batch.'),
         required=False,
         default=30,
+        min=1,
     )

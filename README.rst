@@ -13,12 +13,8 @@ External content is not indexed in any way.
 TODO:
 
 * [ ] deal with shorter timeouts
-* [X] byline for entries
 * [ ] honor privacy settings on byline
-* [ ] honor sorting and limit fields in listings
-* [ ] batching in listings
 * [ ] lead image support
-* [X] tile for collective.cover
 
 Mostly Harmless
 ===============

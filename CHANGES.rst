@@ -4,6 +4,10 @@ Changelog
 1.0a2 (unreleased)
 ------------------
 
+- Entries are now limited and sorted by the selected key in the specified order;
+  batching is also enabled.
+  [hvelarde]
+
 - Fix ``LocationError`` on RSS feeds.
   [hvelarde]
 
